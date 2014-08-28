@@ -86,9 +86,6 @@ def decode(x = None):
                 break;
             li.append(decode());
         return li;
-f = open('C:/Users/TJT/Downloads/74312B07033A4903807D10A5B63A1FF533DA105D (1).torrent','rb');
-d = f.read();
-f.close();
     
     
     
