@@ -88,7 +88,16 @@ def decode(x = None):
             li.append(decode());
         return li;
     
-    
+def load(path):
+    f = open(path, 'rb');
+    d = f.read();
+    f.close();
+    return decode(d);
+def save(obj, path):
+    f = open(path, 'wb');
+    f.write(encode(obj));
+    f.close();
+    return True;
     
         
 
