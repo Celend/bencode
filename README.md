@@ -17,9 +17,9 @@ this module support multiple data type, include bytes. so you can open a torrent
 import bencode;
 >>> f = open('bt.torrent', 'rb');
 >>> bt = bencode.decode(f.read());
->>> f.close
->>> bt.keys()
->>> dict_keys(['info', 'announce-list'])
+>>> f.close();
+>>> bt.keys();
+dict_keys(['info', 'announce-list'])
 >>> for i in bt['info']['files']:
     print(i['path']);
 
