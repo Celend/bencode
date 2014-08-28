@@ -34,5 +34,5 @@ or load with `bencode.load(filename)` return object, save with `bencode.save(obj
 #####result
 only filename has been changed, open with downloader successfully downloaded.  
 so i can say this module can fully support torrent file read/write.  
-**have BUGs? oh sorry, i don't know(＞﹏＜)**
+**have BUGs? oh sorry, i don't know(＞﹏＜)**  
 **Good Lucky**
