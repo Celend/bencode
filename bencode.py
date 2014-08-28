@@ -1,7 +1,6 @@
 #
 __data = bytes();
 s = 0;
-e = 0;
 l = 0;
 def encode(x):
     if type(x) == int:
@@ -34,11 +33,10 @@ def encode(x):
             raise TypeError('the arg data type is not support for bencode.');
 
 def decode(x = None):
-    global __data, s, e, l;
+    global __data, s, l;
     if type(x) != bytes and x != None:
         raise TypeError("To decode the data type must be bytes.")
     elif x != None:
-        e = 0;
         s = 0;
         l = 0;
         __data = x;
@@ -46,7 +44,6 @@ def decode(x = None):
     #dict
     if __data[s] == 100:
         s += 1;
-        e += 1;
         d = {};
         while s < l-1:
             if __data[s] not in range(48, 58):
