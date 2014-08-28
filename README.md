@@ -18,6 +18,7 @@ import bencode;
 >>> f = open('bt.torrent', 'rb');
 >>> bt = bencode.decode(f.read());
 >>> f.close
+>>> bt.keys()
 >>> dict_keys(['info', 'announce-list'])
 >>> for i in bt['info']['files']:
     print(i['path']);
