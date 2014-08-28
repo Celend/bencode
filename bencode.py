@@ -27,7 +27,11 @@ def encode(x):
             end += encode(i);
         end += 'e'.encode();
         return end;
-    raise TypeError('the arg data type is not support for bencode.');
+    else:
+        try:
+            return (str(len(x)) + ':').encode('ascii') + x;
+        except:
+            raise TypeError('the arg data type is not support for bencode.');
 
 def decode(x = None):
     global __data, s, e, l;
