@@ -3,6 +3,11 @@ __data = bytes();
 __s = 0;
 __l = 0;
 def encode(x):
+    """param:
+    object, contains int, str, list, dict or bytes.
+return:
+    bytes, return the bencoded data.
+    """
     if type(x) == int:
         return 'i'.encode() + str(x).encode() + 'e'.encode();
     elif type(x) == str:
@@ -33,7 +38,10 @@ def encode(x):
             raise TypeError('the arg data type is not support for bencode.');
 
 def decode(x = None):
-    """
+    """param:
+    bytes, the bytes will be decode.
+return:
+    object, unable decoding data will return bytes.
     """
     global __data, __s, __l;
     if type(x) != bytes and x != None:
@@ -91,11 +99,23 @@ def decode(x = None):
         return li;
     
 def load(path):
+    """loading bencode object from file
+param:
+    str, path and filename.
+return:
+    bencode object.
+    """
     with open(path, 'rb') as f:
         d = f.read();
     f.close();
     return decode(d);
 def save(obj, path):
+    """encoding object and save.
+param:
+    1. bencode object, 2. filename.
+return:
+    boolean.
+    """
     with open(path, 'wb') as f:
         f.write(encode(obj));
     f.close();
