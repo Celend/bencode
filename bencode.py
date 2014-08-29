@@ -1,7 +1,7 @@
 #
 __data = bytes();
-s = 0;
-l = 0;
+__s = 0;
+__l = 0;
 def encode(x):
     if type(x) == int:
         return 'i'.encode() + str(x).encode() + 'e'.encode();
@@ -33,69 +33,71 @@ def encode(x):
             raise TypeError('the arg data type is not support for bencode.');
 
 def decode(x = None):
-    global __data, s, l;
+    """
+    """
+    global __data, __s, __l;
     if type(x) != bytes and x != None:
         raise TypeError("To decode the data type must be bytes.")
     elif x != None:
-        s = 0;
-        l = 0;
+        __s = 0;
+        __l = 0;
         __data = x;
-        l = len(__data);
+        __l = len(__data);
     #dict
-    if __data[s] == 100:
-        s += 1;
+    if __data[__s] == 100:
+        __s += 1;
         d = {};
-        while s < l-1:
-            if __data[s] not in range(48, 58):
+        while __s < __l-1:
+            if __data[__s] not in range(48, 58):
                 break;
                 #raise RuntimeError("the dict key must be str.");
             key = decode();
             value = decode();
             d.update({key:value});
-        s += 1;
+        __s += 1;
         return d;
     #int
-    elif __data[s] == 105:
-        temp = s + 1;
+    elif __data[__s] == 105:
+        temp = __s + 1;
         key = '';
         while __data[temp] in range(48, 58):
             key += str(__data[temp]-48);
             temp += 1;
-        s += len(key) + 2;
+        __s += len(key) + 2;
         return int(key);
     #string
-    elif __data[s] in range(48, 58):
-        temp = s;
+    elif __data[__s] in range(48, 58):
+        temp = __s;
         key  = '';
         while __data[temp] in range(48, 58):
             key += str(__data[temp]-48);
             temp += 1;
         temp += 1;
         key = __data[temp:temp+int(key)];
-        s = len(key)+temp;
+        __s = len(key)+temp;
         try:
             return key.decode();
         except:
             return key;
     #list
-    elif __data[s] == 108:
+    elif __data[__s] == 108:
         li = [];
-        s += 1;
-        while s < l:
-            if __data[s] == 101:
-                s += 1;
+        __s += 1;
+        while __s < __l:
+            if __data[__s] == 101:
+                __s += 1;
                 break;
             li.append(decode());
         return li;
     
 def load(path):
-    f = open(path, 'rb');
-    d = f.read();
+    with open(path, 'rb') as f:
+        d = f.read();
     f.close();
     return decode(d);
 def save(obj, path):
-    f = open(path, 'wb');
-    f.write(encode(obj));
+    with open(path, 'wb') as f:
+        f.write(encode(obj));
     f.close();
     return True;
     
