@@ -32,6 +32,16 @@ dict_keys(['info', 'announce-list'])
 >>> f.close();
 ```
 
+**or**  
+
+```python
+>>> import bencode
+>>> bt = bencode.load('bt.torrent');
+do something
+>>> bencode.save(bt, 'bt.torrent');
+true
+```  
+
 or load with `bencode.load(filename)` return object, save with `bencode.save(object, filename)` return boolean;
 #####result
 only filename has been changed, open with downloader successfully downloaded.  
