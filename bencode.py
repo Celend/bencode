@@ -40,12 +40,13 @@ return:
 
 def decode(x = None, enc=False):
     """param:
-    bytes, the bytes will be decode.
+    1. bytes, the bytes will be decode.
+    2. str or list, when can not decode with utf-8 charset will try using this charset decoding. 
 return:
     object, unable decoding data will return bytes.
     """
     global __data, __s, __l, __enc;
-    if __enc == False and enc != False:
+    if enc != False:
         __enc = enc;
     if type(x) != bytes and x != None:
         raise TypeError("To decode the data type must be bytes.")
@@ -86,14 +87,20 @@ return:
         temp += 1;
         key = __data[temp:temp+int(key)];
         __s = len(key)+temp;
-        print(__enc);
-        try:
-            return key.decode('utf-8');
-        except:
+        if type(__enc) == list:
+            for ii in __enc:
+                try:
+                    return key.decode(ii);
+                except:
+                    continue;
+        else:
             try:
-                return key.decode(__enc);
+                return key.decode('utf-8');
             except:
-                return key;
+                try:
+                    return key.decode(__enc);
+                except:
+                    return key;
     #list
     elif __data[__s] == 108:
         li = [];
