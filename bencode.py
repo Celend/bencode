@@ -2,6 +2,7 @@
 __data = bytes();
 __s = 0;
 __l = 0;
+__enc = False;
 def encode(x):
     """param:
     object, contains int, str, list, dict or bytes.
@@ -37,13 +38,15 @@ return:
         except:
             raise TypeError('the arg data type is not support for bencode.');
 
-def decode(x = None):
+def decode(x = None, enc=False):
     """param:
     bytes, the bytes will be decode.
 return:
     object, unable decoding data will return bytes.
     """
-    global __data, __s, __l;
+    global __data, __s, __l, __enc;
+    if __enc == False and enc != False:
+        __enc = enc;
     if type(x) != bytes and x != None:
         raise TypeError("To decode the data type must be bytes.")
     elif x != None:
@@ -83,10 +86,14 @@ return:
         temp += 1;
         key = __data[temp:temp+int(key)];
         __s = len(key)+temp;
+        print(__enc);
         try:
-            return key.decode();
+            return key.decode('utf-8');
         except:
-            return key;
+            try:
+                return key.decode(__enc);
+            except:
+                return key;
     #list
     elif __data[__s] == 108:
         li = [];
@@ -98,7 +105,7 @@ return:
             li.append(decode());
         return li;
     
-def load(path):
+def load(path, enc='utf-8'):
     """loading bencode object from file
 param:
     str, path and filename.
@@ -108,7 +115,7 @@ return:
     with open(path, 'rb') as f:
         d = f.read();
     f.close();
-    return decode(d);
+    return decode(d, enc);
 def save(obj, path):
     """encoding object and save.
 param:
