@@ -36,7 +36,7 @@ dict_keys(['info', 'announce-list'])
 
 ```python
 >>> import bencode
->>> bt = bencode.load('bt.torrent', 'gb2312');
+>>> bt = bencode.load('bt.torrent', ['gbk', 'gb2312', 'big5']);
 do something
 >>> bencode.save(bt, 'bt.torrent');
 true
