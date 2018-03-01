@@ -1,10 +1,11 @@
 bencode
 =======
 
-python3 bencode, support multiple encoding and read/write BT torrent file.
-this module support multiple data type, include bytes. so you can open a torrent file, unable decoding the data will be return bytes, that you can insert bytes data. auto sorted dictionary key when insert dict.  
+python3 bencode, support multiple encodings and read/write BT torrent file.
+this module support multiple data type, include bytes. so you can open a torrent file, if the field unable to decode, will treat as bytes, also you can insert bytes data. auto sort dictionary key when insert dict.  
+
 **Support UTF-8**
-#####data type
+##### data type
 |bencode|Python|
 |-------|------|
 | int | int |
@@ -13,7 +14,7 @@ this module support multiple data type, include bytes. so you can open a torrent
 | dictionary|dict|
 | unable decoding| bytes|
 
-#####example
+##### example
 ```python
 import bencode;
 >>> f = open('bt.torrent', 'rb');
@@ -43,8 +44,8 @@ true
 ```  
 
 or load with `bencode.load(filename)` return object, save with `bencode.save(object, filename)` return boolean;
-#####result
-only filename has been changed, open with downloader successfully downloaded.  
-so i can say this module can fully support torrent file read/write.  
-**have BUGs? oh sorry, i don't know(＞﹏＜)**  
-**Good Lucky**
+##### result
+only filename has been changed, open with downloader and successfully downloaded.  
+so i can say this module can fully support torrent file for read/write.  
+
+**Good Luck**
